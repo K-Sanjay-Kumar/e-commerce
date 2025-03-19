@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     if (storedUser) {
       axios
-        .get(`/api/orders/count/${token}`)
+        .get(import.meta.env.VITE_SERVER_URL+`/api/orders/count/${token}`)
         .then((response) => {
           setOrderCount(response.data.count)
         })

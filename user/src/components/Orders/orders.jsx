@@ -19,7 +19,7 @@ const Orders = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`/api/orders/getUserOrders/${encryptedId}`);
+        const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/api/orders/getUserOrders/${encryptedId}`);
         setOrders(response.data.orders || []);
       } catch (err) {
         console.error("Error fetching orders:", err);

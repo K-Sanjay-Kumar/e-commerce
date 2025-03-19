@@ -11,7 +11,7 @@ const Product = () => {
 
   useEffect(() => {
     axios
-      .get("/api/products/get")
+      .get(import.meta.env.VITE_SERVER_URL+"/api/products/get")
       .then((response) => {
         setProducts(response.data.data);
         setLoading(false);

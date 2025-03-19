@@ -23,10 +23,10 @@ const ProductsPage = () => {
         const fetchStats = async () => {
             try {
                 const [totalRes, topSellingRes, lowStockRes, revenueRes] = await Promise.all([
-                    axios.get("/api/products/total-products-count"),
-                    axios.get("/api/products/top-selling-count"),
-                    axios.get("/api/products/low-stock-count"),
-                    axios.get("/api/products/total-revenue"),
+                    axios.get(import.meta.env.VITE_SERVER_URL+"/api/products/total-products-count"),
+                    axios.get(import.meta.env.VITE_SERVER_URL+"/api/products/top-selling-count"),
+                    axios.get(import.meta.env.VITE_SERVER_URL+"/api/products/low-stock-count"),
+                    axios.get(import.meta.env.VITE_SERVER_URL+"/api/products/total-revenue"),
                 ]);
 
                 setStats({

@@ -20,7 +20,7 @@ const BuyerOrderPage = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/seller/buyerproduct/${encodedKey}`)
+      .get(import.meta.env.VITE_SERVER_URL+`/api/seller/buyerproduct/${encodedKey}`)
       .then((response) => {
         if (response.data.success) {
           setProductData(response.data.data);
@@ -61,7 +61,7 @@ const BuyerOrderPage = () => {
     };
   
     try {
-      const response = await axios.post("/api/orders/place-order", orderDetails);
+      const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/orders/place-order", orderDetails);
       if (response.data.success) {
         alert("Order placed successfully! 🚀");
         setFormData({ name: "", email: "", mobile: "", address: "", city: "", state: "", pincode: "" }); // Clear form

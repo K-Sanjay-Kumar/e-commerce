@@ -34,7 +34,7 @@ const handleSubmit = async () => {
     const otpCode = otp.join("");
     if (otpCode.length === 4) {
       try {
-        const response = await axios.post("/api/user/VerifyOTP", {
+        const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/user/VerifyOTP", {
           email,
           otp: otpCode,
         });

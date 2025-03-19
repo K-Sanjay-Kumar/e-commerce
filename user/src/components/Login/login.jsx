@@ -37,7 +37,7 @@ const Login = () => {
 
         // Send user data to backend
         axios
-          .post("/api/user/register", userData)
+          .post(import.meta.env.VITE_SERVER_URL+"/api/user/register", userData)
           .then((response) => {
             localStorage.setItem("user", JSON.stringify(response.data.user));
             localStorage.setItem("token", response.data.token);
@@ -51,7 +51,7 @@ const Login = () => {
   const sendOTP = () => {
     setLoader(true);
     axios
-      .post("/api/user/SendOTP", { email })
+      .post(import.meta.env.VITE_SERVER_URL+"/api/user/SendOTP", { email })
       .then((response) => {
         setLoader(false);
         navigate("/verify-otp", { state: { email } });

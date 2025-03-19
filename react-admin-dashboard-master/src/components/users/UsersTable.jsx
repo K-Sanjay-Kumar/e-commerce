@@ -12,7 +12,7 @@ const UsersTable = () => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await axios.get("/api/user/usersList");
+				const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/api/user/usersList");
 				const formattedUsers = response.data.map(user => ({
 					...user,
 					lastLogin: new Date(user.lastLogin).toLocaleDateString("en-GB", {

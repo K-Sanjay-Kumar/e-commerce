@@ -11,7 +11,7 @@ const OrdersTable = () => {
 	useEffect(() => {
 		const fetchOrders = async () => {
 			try {
-				const response = await fetch("/api/orders/allOrders");
+				const response = await fetch(import.meta.env.VITE_SERVER_URL+"/api/orders/allOrders");
 				const data = await response.json();
 				setOrderData(data.orders);
 				setFilteredOrders(data.orders);
@@ -42,7 +42,7 @@ const OrdersTable = () => {
 	
 	const handleUpdateStatus = async (orderId) => {
 		try {
-			const response = await axios.put(`/api/orders/update/${orderId}`, {
+			const response = await axios.put(import.meta.env.VITE_SERVER_URL+`/api/orders/update/${orderId}`, {
 				status: "Delivered"  // Change status as needed
 			});
 	
@@ -62,7 +62,7 @@ const OrdersTable = () => {
 	
 	const handleCancelOrder = async (orderId) => {
 		try {
-			const response = await axios.put(`/api/orders/cancel/${orderId}`, {
+			const response = await axios.put(import.meta.env.VITE_SERVER_URL+`/api/orders/cancel/${orderId}`, {
 				status: "Cancelled"
 			});
 	

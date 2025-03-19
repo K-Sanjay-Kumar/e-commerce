@@ -21,7 +21,7 @@ const EditProduct = () => {
         // Fetch product details when component mounts
         const fetchProductDetails = async () => {
             try {
-                const response = await axios.get(`/api/products/get/${id}`);
+                const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/api/products/get/${id}`);
                 const product = response.data.data;
 
                 setFormData({
@@ -99,7 +99,7 @@ const EditProduct = () => {
                 }
             });
             
-            const response = await axios.put(`/api/products/update/${id}`, formDataToSend, {
+            const response = await axios.put(import.meta.env.VITE_SERVER_URL+`/api/products/update/${id}`, formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
 

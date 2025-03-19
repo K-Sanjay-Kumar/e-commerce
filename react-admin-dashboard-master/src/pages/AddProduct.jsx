@@ -84,7 +84,7 @@ const AddProduct = () => {
     //             formDataToSend.append("images", img.file);
     //         });
     
-    //         const response = await axios.post("/api/products/add", formDataToSend, {
+    //         const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/products/add", formDataToSend, {
     //             headers: { "Content-Type": "multipart/form-data" },
     //         });
 
@@ -130,7 +130,7 @@ const AddProduct = () => {
 
             console.log(formDataToSend);
     
-            const response = await axios.post("/api/products/add", formDataToSend, {
+            const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/products/add", formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
     

@@ -16,7 +16,7 @@ const ProductsTable = () => {
 	// ✅ Fetch product data from the backend
 	const fetchProducts = async () => {
 		try {
-			const response = await axios.get("/api/products/get");
+			const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/api/products/get");
 			setProducts(response.data.data);
 			setFilteredProducts(response.data.data);
 		} catch (error) {
@@ -58,7 +58,7 @@ const ProductsTable = () => {
 
 		try {
 			// Send DELETE request to backend
-			await axios.delete(`/api/products/delete/${selectedProduct._id}`);
+			await axios.delete(import.meta.env.VITE_SERVER_URL+`/api/products/delete/${selectedProduct._id}`);
 
 			// Refresh product list
 			fetchProducts();

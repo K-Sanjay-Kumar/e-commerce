@@ -15,7 +15,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/products/get/${id}`)
+      .get(import.meta.env.VITE_SERVER_URL+`/api/products/get/${id}`)
       .then((response) => {
         setProduct(response.data.data);
         setSelectedImage(response.data.data.images[0]);
@@ -29,7 +29,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/seller/get-profit`, {
+      .get(import.meta.env.VITE_SERVER_URL+`/api/seller/get-profit`, {
         params: { encryptedUserId: token, product_id: id }
       })
       .then((response) => {
@@ -71,7 +71,7 @@ const ProductDetails = () => {
   // Save price function
   const handleSavePrice = async () => {
     try {
-      await axios.post(`/api/seller/save-profit`, {
+      await axios.post(import.meta.env.VITE_SERVER_URL+`/api/seller/save-profit`, {
         encryptedUserId: token,
         product_id: id,
         profit_price: profitPrice,
@@ -106,7 +106,7 @@ const ProductDetails = () => {
       const encodedKey = btoa(rawKey).replace(/[^a-zA-Z0-9]/g, "").slice(0, 10); 
   
       // Save share code to the database
-      const { data } = await axios.post("/api/seller/store-share-code", {
+      const { data } = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/seller/store-share-code", {
         encryptedUserId: token,
         product_id: id,
         share_code: encodedKey,

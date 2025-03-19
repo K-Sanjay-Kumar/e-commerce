@@ -16,7 +16,7 @@ const SellerProductsTable = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(`/api/seller/products/get/${id}`);
+            const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/api/seller/products/get/${id}`);
             setProducts(response.data.data);
             setFilteredProducts(response.data.data);
         } catch (error) {
@@ -49,7 +49,7 @@ const SellerProductsTable = () => {
         setLoader(true);
 
         try {
-            await axios.delete(`/api/products/delete/${selectedProduct._id}`);
+            await axios.delete(import.meta.env.VITE_SERVER_URL+`/api/products/delete/${selectedProduct._id}`);
             fetchProducts();
             setLoader(false);
             setShowConfirm(false);

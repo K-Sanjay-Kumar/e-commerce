@@ -19,7 +19,7 @@ const UsersPage = () => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await fetch("/api/user/usersList"); // Existing API
+				const response = await fetch(import.meta.env.VITE_SERVER_URL+"/api/user/usersList"); // Existing API
 				const users = await response.json();
 
 				const totalUsers = users.length;

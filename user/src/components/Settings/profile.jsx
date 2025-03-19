@@ -25,7 +25,7 @@ const Profile = () => {
         if (storedUser) {
             setUser(storedUser);
             axios
-                .get(`/api/orders/count/${token}`)
+                .get(import.meta.env.VITE_SERVER_URL+`/api/orders/count/${token}`)
                 .then((response) => setOrdersCount(response.data.count))
                 .catch((error) => console.error("Error fetching orders:", error));
 
@@ -39,7 +39,7 @@ const Profile = () => {
 
     const handleAddAddress = () => {
         axios
-            .post("/api/address/add", { ...formData, encryptedUserId: token })
+            .post(import.meta.env.VITE_SERVER_URL+"/api/address/add", { ...formData, encryptedUserId: token })
             .then(() => {
                 alert("Address added successfully!");
                 fetchAddresses(token);
@@ -64,7 +64,7 @@ const Profile = () => {
     // Function to fetch addresses
     const fetchAddresses = (id) => {
         axios
-            .get(`/api/address/get/${id}`)
+            .get(import.meta.env.VITE_SERVER_URL+`/api/address/get/${id}`)
             .then((response) => setAddresses(response.data.data))
             .catch((error) => console.error("Error fetching addresses:", error));
     };
@@ -72,7 +72,7 @@ const Profile = () => {
     // Function to delete an address
     const handleDeleteAddress = (addressId) => {
         axios
-            .delete(`/api/address/deleteAddress`, {
+            .delete(import.meta.env.VITE_SERVER_URL+`/api/address/deleteAddress`, {
                 data: { encryptedUserId, addressId },
             })
             .then(() => {
