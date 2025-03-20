@@ -1,9 +1,11 @@
-    import ProductModel from "../models/product.model.js";
+import ProductModel from "../models/product.model.js";
 import crypto from "crypto";
 import { cloudinary } from "../config/cloudinary.js";
 
 // ✅ Add Product with Cloudinary Upload
 export const addProduct = async (req, res) => {
+    console.log("Request Body:", req.body);
+    console.log("Request Files:", req.files);
     try {
         const { name, price, oldPrice, description, sizes, points } = req.body;
 
@@ -22,9 +24,19 @@ export const addProduct = async (req, res) => {
         }
 
         // Upload images to Cloudinary
+        // const uploadedImages = await Promise.all(
+        //     req.files.map(async (file) => {
+        //         const result = await cloudinary.uploader.upload(file.path);
+        //         return result.secure_url;
+        //     })
+        // );
+
+        // ✅ Upload images directly from memory to Cloudinary
         const uploadedImages = await Promise.all(
             req.files.map(async (file) => {
-                const result = await cloudinary.uploader.upload(file.path);
+                console.log("File:", file);
+                const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
+                console.log("Result:", result);
                 return result.secure_url;
             })
         );
@@ -123,19 +135,64 @@ export const getRevenue = async (req, res) => {
 
 
 // ✅ Update Product
+// export const updateProducts = async (req, res) => {
+//     const { id } = req.params;
+//     const { name, oldPrice, price, description, images, sizes, points } = req.body;
+
+//     try {
+//         // Convert sizes from string to an array of numbers if provided
+//         const parsedSizes = Array.isArray(sizes) ? sizes.map(Number) : JSON.parse(sizes);
+
+//         // Calculate stock dynamically as the sum of all sizes
+//         const parsedStock = parsedSizes.reduce((total, size) => total + size, 0);
+
+//         // Parse points array if it's a string
+//         const parsedPoints = Array.isArray(points) ? points : JSON.parse(points);
+
+//         const updatedProduct = await ProductModel.findByIdAndUpdate(
+//             id,
+//             {
+//                 name,
+//                 oldPrice,
+//                 price,
+//                 description,
+//                 stock: parsedStock, // Updated stock calculation
+//                 images,  // Ensure images are updated correctly
+//                 sizes: parsedSizes,
+//                 points: parsedPoints // Include points in the update
+//             },
+//             { new: true }
+//         );
+
+//         if (!updatedProduct) {
+//             return res.status(404).json({ message: "Product not found" });
+//         }
+
+//         res.json({ message: "Product updated successfully", data: updatedProduct });
+//     } catch (error) {
+//         console.error("Error updating product:", error);
+//         res.status(500).json({ message: "Internal Server Error" });
+//     }
+// };
 export const updateProducts = async (req, res) => {
     const { id } = req.params;
-    const { name, oldPrice, price, description, images, sizes, points } = req.body;
+    const { name, oldPrice, price, description, sizes, points } = req.body;
 
     try {
-        // Convert sizes from string to an array of numbers if provided
         const parsedSizes = Array.isArray(sizes) ? sizes.map(Number) : JSON.parse(sizes);
-
-        // Calculate stock dynamically as the sum of all sizes
         const parsedStock = parsedSizes.reduce((total, size) => total + size, 0);
-
-        // Parse points array if it's a string
         const parsedPoints = Array.isArray(points) ? points : JSON.parse(points);
+
+        let uploadedImages = [];
+
+        if (req.files && req.files.length > 0) {
+            uploadedImages = await Promise.all(
+                req.files.map(async (file) => {
+                    const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
+                    return result.secure_url;
+                })
+            );
+        }
 
         const updatedProduct = await ProductModel.findByIdAndUpdate(
             id,
@@ -144,10 +201,10 @@ export const updateProducts = async (req, res) => {
                 oldPrice,
                 price,
                 description,
-                stock: parsedStock, // Updated stock calculation
-                images,  // Ensure images are updated correctly
+                stock: parsedStock,
+                images: uploadedImages,
                 sizes: parsedSizes,
-                points: parsedPoints // Include points in the update
+                points: parsedPoints
             },
             { new: true }
         );
@@ -162,6 +219,8 @@ export const updateProducts = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
+
 
 // ✅ Delete Product
 export const deleteProduct = async (req, res) => {

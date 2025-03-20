@@ -66,56 +66,12 @@ const AddProduct = () => {
         setFormData({ ...formData, sizes: updatedSizes });
     };
 
-    // const handleSubmit = async (e) => {
-    //     setLoader(true);
-    //     e.preventDefault();
-    
-    //     try {
-    //         const formDataToSend = new FormData();
-    //         formDataToSend.append("name", formData.name);
-    //         formDataToSend.append("description", formData.description);
-    //         formDataToSend.append("price", formData.price);
-    //         formDataToSend.append("oldPrice", formData.oldPrice);
-    //         // formDataToSend.append("stock", formData.stock);
-    //         formDataToSend.append("sizes", JSON.stringify(formData.sizes)); // Send sizes as JSON string
-    
-    //         // Append images to FormData
-    //         formData.images.forEach((img) => {
-    //             formDataToSend.append("images", img.file);
-    //         });
-    
-    //         const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/products/add", formDataToSend, {
-    //             headers: { "Content-Type": "multipart/form-data" },
-    //         });
-
-    //         setLoader(false);
-    //         // ✅ Reset form state after successful submission
-    //         setFormData({
-    //             name: "",
-    //             description: "",
-    //             price: "",
-    //             oldPrice: "",
-    //             // stock: "",
-    //             images: [],
-    //             sizes: [0, 0, 0]
-    //         });
-
-    //         const messageElement = document.getElementById("message");
-    //         messageElement.innerHTML = response.data.message;
-    //         messageElement.style.color = "green";
-    
-    //     } catch (error) {
-    //         const messageElement = document.getElementById("message");
-    //         messageElement.innerHTML = "Failed to add product.";
-    //         messageElement.style.color = "red";
-    //     }
-    // };
-
     const handleSubmit = async (e) => {
         setLoader(true);
         e.preventDefault();
     
         try {
+            console.log("entered try");
             const formDataToSend = new FormData();
             formDataToSend.append("name", formData.name);
             formDataToSend.append("description", formData.description);
@@ -128,7 +84,10 @@ const AddProduct = () => {
                 formDataToSend.append("images", img.file);
             });
 
-            console.log(formDataToSend);
+            console.log("FormData to send:");
+            for (let pair of formDataToSend.entries()) {
+                console.log(`${pair[0]}: ${pair[1]}`);
+            }
     
             const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/products/add", formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -151,6 +110,7 @@ const AddProduct = () => {
         } catch (error) {
             document.getElementById("message").innerHTML = "Failed to add product.";
             document.getElementById("message").style.color = "red";
+            setLoader(false);
         }
     };
     
