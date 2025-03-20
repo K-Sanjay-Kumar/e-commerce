@@ -71,7 +71,6 @@ const AddProduct = () => {
         e.preventDefault();
     
         try {
-            console.log("entered try");
             const formDataToSend = new FormData();
             formDataToSend.append("name", formData.name);
             formDataToSend.append("description", formData.description);
@@ -83,11 +82,6 @@ const AddProduct = () => {
             formData.images.forEach((img) => {
                 formDataToSend.append("images", img.file);
             });
-
-            console.log("FormData to send:");
-            for (let pair of formDataToSend.entries()) {
-                console.log(`${pair[0]}: ${pair[1]}`);
-            }
     
             const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/api/products/add", formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },

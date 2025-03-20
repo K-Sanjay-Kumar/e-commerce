@@ -140,7 +140,6 @@ export const storeShareCode = async (req, res) => {
 
 // get buyer product
 export const getBuyerProduct = async (req, res) => {
-  console.log("req.params", req.params);
   try {
     const { share_code } = req.params;
 

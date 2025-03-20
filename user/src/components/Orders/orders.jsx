@@ -11,7 +11,6 @@ const Orders = () => {
 
   useEffect(() => {
     if (!encryptedId) {
-      console.log("User not logged in!");
       setError("User not logged in!");
       setLoading(false);
       return;

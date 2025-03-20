@@ -4,8 +4,6 @@ import { cloudinary } from "../config/cloudinary.js";
 
 // ✅ Add Product with Cloudinary Upload
 export const addProduct = async (req, res) => {
-    console.log("Request Body:", req.body);
-    console.log("Request Files:", req.files);
     try {
         const { name, price, oldPrice, description, sizes, points } = req.body;
 
@@ -23,20 +21,10 @@ export const addProduct = async (req, res) => {
             return res.status(400).json({ message: "At least one image is required" });
         }
 
-        // Upload images to Cloudinary
-        // const uploadedImages = await Promise.all(
-        //     req.files.map(async (file) => {
-        //         const result = await cloudinary.uploader.upload(file.path);
-        //         return result.secure_url;
-        //     })
-        // );
-
-        // ✅ Upload images directly from memory to Cloudinary
+        // Upload images directly from memory to Cloudinary
         const uploadedImages = await Promise.all(
             req.files.map(async (file) => {
-                console.log("File:", file);
                 const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${file.buffer.toString('base64')}`);
-                console.log("Result:", result);
                 return result.secure_url;
             })
         );

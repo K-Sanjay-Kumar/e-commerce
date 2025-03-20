@@ -74,8 +74,7 @@ export const getOrdersCountByUserId = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        const ordersCount = user.orders.length; // Get cart array length
-        console.log("ordersCount", ordersCount);
+        const ordersCount = user.orders.length; 
         res.status(200).json({ count: ordersCount });
 
     } catch (error) {
@@ -85,7 +84,6 @@ export const getOrdersCountByUserId = async (req, res) => {
 
 // Update order status
 export const updateOrderStatus = async (req, res) => {
-    console.log("orderID", req.params);
     try {
         const { orderId } = req.params;
         const { status } = req.body;

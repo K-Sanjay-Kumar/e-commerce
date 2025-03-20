@@ -77,8 +77,6 @@ const ProductDetails = () => {
         profit_price: profitPrice,
         base_price: product.price,
         final_price: product.price + Number(profitPrice),
-      }).then((response) => {
-        console.log(response.data);
       });
       setSavedPrice(profitPrice);
       setIsEditing(false);
