@@ -125,8 +125,8 @@ const ProductDetails = () => {
   
 
   return (
-    <div className="container mt-12 mb-14">
-      <Link to="/" className="flex items-center text-gray-600 hover:text-primary">
+    <div className="p-8 dark:bg-gray-950 dark:text-white duration-200">
+      <Link to="/" className="flex items-center text-gray-600 hover:text-primary dark:text-white duration-200">
         <FaArrowLeft className="mr-2" /> Back to Products
       </Link>
 

@@ -1,32 +1,42 @@
 import React from "react";
-import Image1 from "../../assets/hero/women.png";
-import Image2 from "../../assets/hero/shopping.png";
-import Image3 from "../../assets/hero/sale.png";
+import Step1Image from "../../assets/hero/step-1.png";
+import Step2Image from "../../assets/hero/step-2.png";
+import Step3Image from "../../assets/hero/step-3.png";
+import Step4Image from "../../assets/hero/step-4.png";
 import Slider from "react-slick";
 
 const ImageList = [
   {
     id: 1,
-    img: Image1,
-    title: "Upto 50% off on all Men's Wear",
+    img: Step1Image,
+    title: "Step 1: Create Your Account",
     description:
-      "lorem His Life will forever be Changed dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Sign up as a seller on our platform. It's quick, easy, and free! Provide your details and verify your account to get started.",
   },
   {
     id: 2,
-    img: Image2,
-    title: "30% off on all Women's Wear",
+    img: Step2Image,
+    title: "Step 2: Set Your Profit Margin",
     description:
-      "Who's there lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Define your profit margin for each product. Our intuitive dashboard helps you set prices that work best for your business.",
   },
   {
     id: 3,
-    img: Image3,
-    title: "70% off on all Products Sale",
+    img: Step3Image,
+    title: "Step 3: Share Your Unique Link",
     description:
-      "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Share your personalized store link with your customers. Use social media, email, or any other platform to reach a wider audience.",
+  },
+  {
+    id: 4,
+    img: Step4Image,
+    title: "Step 4: Get Orders & Earn",
+    description:
+      "Start receiving orders through your link. Track your sales, manage orders, and watch your earnings grow!",
   },
 ];
+
+const token=localStorage.getItem("token");
 
 const Hero = ({ handleOrderPopup }) => {
   var settings = {
@@ -50,7 +60,7 @@ const Hero = ({ handleOrderPopup }) => {
       <div className="container pb-8 sm:pb-0">
         <Slider {...settings}>
           {ImageList.map((data) => (
-            <div>
+            <div key={data.id}>
               <div className="grid grid-cols-1 sm:grid-cols-2">
                 {/* text content section */}
                 <div className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10">
@@ -76,10 +86,10 @@ const Hero = ({ handleOrderPopup }) => {
                     data-aos-delay="300"
                   >
                     <button
-                      onClick={handleOrderPopup}
+                      onClick={()=> token ? location.href= "/" : location.href="/login"}
                       className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full"
                     >
-                      Order Now
+                      Get Started
                     </button>
                   </div>
                 </div>
@@ -92,7 +102,7 @@ const Hero = ({ handleOrderPopup }) => {
                   >
                     <img
                       src={data.img}
-                      alt=""
+                      alt={data.title}
                       className="w-[300px] h-[300px] sm:h-[450px] sm:w-[450px] sm:scale-105 lg:scale-120 object-contain mx-auto"
                     />
                   </div>
@@ -107,3 +117,4 @@ const Hero = ({ handleOrderPopup }) => {
 };
 
 export default Hero;
+
