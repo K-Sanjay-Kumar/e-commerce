@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { VscLinkExternal } from "react-icons/vsc";
 
@@ -26,13 +25,13 @@ const Product = () => {
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="mt-12 mb-14">
+    <div className="mt-12" style={{paddingBottom:'30px'}}>
       <div className="container">
         <div className="text-left mb-24">
           <h1 className="text-primary font-bold text-3xl">Products</h1>
           <p className="text-xs text-gray-400">Top Selling Products for you.</p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map((product) => (
             <div
               key={product.id}
